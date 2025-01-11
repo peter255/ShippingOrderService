@@ -23,41 +23,71 @@ public class ShippingOrderController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateShippingOrderCommand command)
     {
-        var id = await _mediator.Send(command);
-        return CreatedAtAction(nameof(GetById), new { id }, new { Id = id });
+        try
+        {
+            var id = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id }, new { Id = id });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "An error occurred.", Details = ex.Message });
+        }
     }
 
     // 2. Add Item to Shipping Order
     [HttpPost("{id}/items")]
     public async Task<IActionResult> AddItem(int id, [FromBody] AddShippingOrderItemCommand command)
     {
-        if (id != command.ShippingOrderId)
-            return BadRequest("ShippingOrderId in URL does not match ShippingOrderId in body.");
+        try
+        {
+            if (id != command.ShippingOrderId)
+                return BadRequest("ShippingOrderId in URL does not match ShippingOrderId in body.");
 
-        await _mediator.Send(command);
-        return NoContent();
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "An error occurred.", Details = ex.Message });
+        }
     }
 
     // 3. Change Shipping Order State
     [HttpPut("{id}/state")]
     public async Task<IActionResult> ChangeState(int id, [FromBody] ChangeShippingOrderStateCommand command)
     {
-        if (id != command.ShippingOrderId)
-            return BadRequest("ShippingOrderId in URL does not match ShippingOrderId in body.");
+        try
+        {
+            if (id != command.ShippingOrderId)
+                return BadRequest("ShippingOrderId in URL does not match ShippingOrderId in body.");
 
-        await _mediator.Send(command);
-        return NoContent();
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "An error occurred.", Details = ex.Message });
+        }
+
+
     }
 
     // 4. Remove Item from Shipping Order
     [HttpDelete("{id}/items/{itemId}")]
     public async Task<IActionResult> RemoveItem(int id, int itemId)
     {
-        await _mediator.Send(new RemoveShippingOrderItemCommand(id, itemId));
-        return NoContent();
+        try
+        {
+            await _mediator.Send(new RemoveShippingOrderItemCommand(id, itemId));
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "An error occurred.", Details = ex.Message });
+        }
     }
 
-    // (Optional) Get Shipping Order by ID
+    //Get Shipping Order by ID
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
