@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-    <Folder Include="Queries\" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShippingOrderService.Domain\ShippingOrderService.Domain.csproj" />
   </ItemGroup>
 
 </Project>
