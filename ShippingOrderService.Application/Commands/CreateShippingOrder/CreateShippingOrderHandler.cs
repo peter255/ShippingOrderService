@@ -16,7 +16,7 @@ public class CreateShippingOrderHandler : IRequestHandler<CreateShippingOrderCom
 
     public async Task<int> Handle(CreateShippingOrderCommand request, CancellationToken cancellationToken)
     {
-        var shippingOrder = new ShippingOrder(request.TrackingNumber, request.ShippingDate);
+        var shippingOrder = new ShippingOrder(request.TrackingNumber, request.ShippingDate, request.poId);
         await _repository.AddAsync(shippingOrder);
         await _repository.SaveChangesAsync();
         return shippingOrder.Id;

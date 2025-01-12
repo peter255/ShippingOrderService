@@ -15,7 +15,7 @@ namespace ShippingOrderService.Tests.UnitTests
             // Arrange
             var mockRepository = new Mock<IShippingOrderRepository>();
             var handler = new CreateShippingOrderHandler(mockRepository.Object);
-            var command = new CreateShippingOrderCommand("SO12345", DateTime.Now);
+            var command = new CreateShippingOrderCommand("SO12345", DateTime.Now,1 );
 
             mockRepository.Setup(repo => repo.AddAsync(It.IsAny<ShippingOrder>())).Returns(Task.CompletedTask);
 
@@ -33,7 +33,7 @@ namespace ShippingOrderService.Tests.UnitTests
             // Arrange
             var mockRepository = new Mock<IShippingOrderRepository>();
             var handler = new CreateShippingOrderHandler(mockRepository.Object);
-            var command = new CreateShippingOrderCommand("", DateTime.Now);
+            var command = new CreateShippingOrderCommand("", DateTime.Now, 1 );
 
             // Act
             Func<Task> action = async () => await handler.Handle(command, CancellationToken.None);

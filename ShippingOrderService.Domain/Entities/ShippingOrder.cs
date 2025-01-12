@@ -5,6 +5,8 @@ namespace ShippingOrderService.Domain.Entities
 {
     public class ShippingOrder : BaseEntity
     {
+
+        public int POId { get; private set; }
         public string TrackingNumber { get; private set; }
         public DateTime ShippingDate { get; private set; }
         public ShippingOrderState State { get; private set; } = ShippingOrderState.Created;
@@ -14,13 +16,14 @@ namespace ShippingOrderService.Domain.Entities
 
         private ShippingOrder() { } // Required for EF Core
 
-        public ShippingOrder(string trackingNumber, DateTime shippingDate)
+        public ShippingOrder(string trackingNumber, DateTime shippingDate, int poId)
         {
             if (string.IsNullOrWhiteSpace(trackingNumber))
                 throw new ArgumentException("Tracking number cannot be empty.", nameof(trackingNumber));
 
             TrackingNumber = trackingNumber;
             ShippingDate = shippingDate;
+            POId = poId;
         }
 
         public void AddItem(ShippingOrderItem item)

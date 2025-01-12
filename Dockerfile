@@ -24,6 +24,7 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 # Expose the port
+EXPOSE 5000
 EXPOSE 5001
 
 # Run the application

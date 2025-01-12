@@ -15,7 +15,7 @@ namespace ShippingOrderService.Tests.UnitTests
             };
 
             // Act
-            var shippingOrder = new ShippingOrder("SO12345", DateTime.Now);
+            var shippingOrder = new ShippingOrder("SO12345", DateTime.Now,1);
 
             // Assert
             Assert.Equal("SO12345", shippingOrder.TrackingNumber);
@@ -26,7 +26,7 @@ namespace ShippingOrderService.Tests.UnitTests
         public void CreateShippingOrder_Should_Throw_Exception_When_TrackingNumber_Is_Empty()
         {
             // Arrange
-            Action action = () => new ShippingOrder("", DateTime.Now);
+            Action action = () => new ShippingOrder("", DateTime.Now,1);
 
             // Act & Assert
             Assert.Throws<ArgumentException>(action);

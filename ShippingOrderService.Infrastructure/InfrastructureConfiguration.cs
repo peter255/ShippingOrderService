@@ -13,7 +13,7 @@ namespace ShippingOrderService.Infrastructure
         {
             services.AddDbContext<ShippingOrderDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("ShippingOrderConnectionString"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
  
             services.AddScoped<IShippingOrderRepository, ShippingOrderRepository>();
